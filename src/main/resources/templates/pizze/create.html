@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title>Crea la tua pizza!</title>
+
+	<style>
+
+		.form-container {
+			max-width: 500px;
+			margin: 0 auto;
+			margin-top: 3%;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			font-family: Arial, sans-serif;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+
+		input[type="text"],
+		input[type="number"],
+		input[type="url"],
+		textarea {
+			width: 100%;
+			padding: 8px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+
+		.form-row {
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+		}
+
+		.form-row .form-group {
+			flex: 1;
+		}
+
+		button {
+			width: 100%;
+			padding: 10px;
+			background-color: #4CAF50;
+			color: white;
+			font-size: 16px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+
+		.col-md-3,
+		.col-md-12,
+		.col-6,
+		.col-3 {
+			margin-bottom: 15px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav th:replace="~{navbar :: navbar('pizze')}"> </nav>
+
+	<div class="container form-container">
+		<h1 class="d-flex justify-content-center">Crea la tua Pizza!</h1>
+		<hr />
+		<form id="pizza-form" th:object="${pizza}" th:action="@{/pizze/create}" th:method="post" class="row g-3">
+
+
+			<div class="col-md-12 form-group">
+				<label for="nome" class="form-label">Nome</label>
+				<input type="text" class="form-control" id="nome" th:errorClass="is-invalid" placeholder="Nome"
+					th:field="*{nome}">
+				<div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback">
+					<ul>
+						<li th:each="err : ${#fields.errors('nome')}" th:text="${err}">
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+
+			<div class="col-md-12 form-group">
+				<label for="ingredienti" class="form-label">Ingredienti</label>
+				<input type="text" class="form-control" id="ingredienti" th:errorClass="is-invalid"
+					placeholder="Ingredienti" th:field="*{descrizione}">
+				<div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback">
+					<ul>
+						<li th:each="err : ${#fields.errors('descrizione')}" th:text="${err}">
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="col-6 form-group">
+					<label for="foto" class="form-label">URL Foto</label>
+					<input type="url" class="form-control" id="foto" placeholder="Inserisci URL della foto"
+						th:field="*{foto}">
+				</div>
+				<div class="col-3 form-group">
+					<label for="prezzo" class="form-label">Prezzo</label>
+					<input type="number" class="form-control" id="prezzo" th:errorClass="is-invalid"
+						placeholder="Prezzo" th:field="*{prezzo}">
+				</div>
+				<div th:if="${#fields.hasErrors('prezzo')}" class="invalid-feedback">
+					<ul>
+						<li th:each="err : ${#fields.errors('prezzo')}" th:text="${err}">
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="col-12 form-group">
+				<button type="submit" class="btn btn-primary mb-3">Salva Pizza</button>
+				<a class="btn btn-danger" th:href="@{/pizze}">Torna al menù</a>
+			</div>
+		</form>
+	</div>
+
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>

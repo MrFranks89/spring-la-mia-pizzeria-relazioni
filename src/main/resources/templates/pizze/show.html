@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title th:text="${pizza.nome}"></title>
+	<style>
+		/* Stile della card */
+		.card {
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.card img {
+			border-radius: 10px;
+			max-height: 300px;
+			object-fit: cover;
+		}
+
+		.card-body dt {
+			font-weight: bold;
+			color: #555;
+		}
+
+		.card-body dd {
+			margin-bottom: 1rem;
+			font-size: 1.1rem;
+			color: #333;
+		}
+
+		/* Pulsanti */
+		.btn {
+			transition: all 0.3s ease;
+		}
+
+		.btn:hover {
+			transform: scale(1.05);
+		}
+
+		/* Margini e layout */
+		.container {
+			margin-top: 30px;
+		}
+
+		.btn-back {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav th:replace="~{navbar :: navbar('pizze')}"> </nav>
+
+	<div class="container">
+		<div class="card">
+			<div class="row g-0">
+				<div class="card-header" th:text="*{nome}"></div>
+
+				<div class="col-md-6">
+					<img th:src="@{${pizza.foto}}" alt="Foto della pizza [[${pizza.nome}]]" class="img-fluid">
+				</div>
+
+				<div class="col-md-6 d-flex align-items-center">
+					<div class="card-body">
+						<h1 class="card-title text-center mb-4" th:text="*{nome}"></h1>
+						<dl>
+							<dt>Ingredienti</dt>
+							<dd th:text="${pizza.descrizione}"></dd>
+							<dt>Prezzo</dt>
+							<dd th:text="${pizza.prezzo} + ' €'"></dd>
+						</dl>
+
+						<div class="d-flex justify-content-between mt-4">
+							<a class="btn btn-success" th:href="@{|/pizze/edit/${pizza.id}|}">
+								<i class="fas fa-edit"></i> Modifica
+							</a>
+							<form id="delete-pizza" th:action="@{'/pizze/delete/{id}'(id=${pizza.id})}" method="post"
+								style="display: inline;">
+								<button class="btn btn-danger" type="submit" id="submitButton"
+									onclick="return confirm('Vuoi eliminare questa pizza?')">
+									<i class="fas fa-trash"></i> Elimina
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<table class="content table table-striped">
+					<thead>
+						<tr>
+							<th>
+								Data Inizio Offerta
+							</th>
+							<th>
+								Data Fine Offerta
+							</th>
+							<th>
+								Nome Offerta
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="offerta : ${pizza.offerte}">
+							<td th:text="${offerta.offerDate}">
+							</td>
+							<td th:text="${offerta.endDate}">
+							</td>
+							<td th:text="${offerta.titolo}">
+							</td>
+							<td><a class="btn btn-success" th:href="@{/pizze/{id}/offerte(id=${pizza.id})}">
+							    <i class="fas fa-edit"></i></td>  
+							</a>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+			<div th:if="${pizza.offerte == null or #lists.isEmpty(pizza.offerte)}">
+				<span> Non ci sono offerte per questa pizza </span>
+			</div>
+
+
+
+		</div>
+		<div class="d-flex justify-content-center btn-back">
+			<a class="btn btn-success" th:href="@{|/pizze/edit/${pizza.id}|}">
+				<i class="fas fa-edit"></i>
+			</a>
+			<form id="delete-pizza" th:action="@{'/pizze/delete/{id}'(id=${pizza.id})}" method="post"
+				style="display:inline-block;">
+				<button class="btn btn-danger" type="submit" id="submitButton"
+					onclick="return confirm('Vuoi eliminare questa pizza?')">
+					<i class="fas fa-trash"></i>
+				</button>
+								<a class="btn btn-success" th:href="@{/pizze/{id}/offerte(id=${pizza.id})}">
+					<i class="fas fa-edit"></i>
+				</a>
+				
+			</form>
+			
+			<div class="d-flex justify-content-center btn-back">
+
+			
+			
+			
+			<a class="btn btn-primary" th:href="@{/pizze}" role="button">
+				<i class="fas fa-arrow-left"></i> Torna al menù delle pizze
+			</a>
+		</div>
+	</div>
+
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>

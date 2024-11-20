@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title>Homepage</title>
+</head>
+
+<body>
+	<!--body><nav th:replace="~{navbar :: navbar('home')}"></nav> -->
+
+	<div class="container-lg">
+
+		<div class="d-flex justify-content-center align-items-center mt-3">
+			<h1>Benvenuto alla Pizzeria Grande Piramide d'Egitto!</h1>
+		</div>
+		<div class="d-flex justify-content-center align-items-center">
+			<p>Esplora il nostro menù di pizze, fritti e tanto altro!</p>
+		</div>
+		<hr>
+
+		<div class="container">
+
+
+
+			<div class="row">
+				<!-- Colonna per le Pizze -->
+				<div class="col-md-4 text-center">
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEzPp-AEnDnBltJUXzMpmXh31Wq6rwc_tHoQ&s"
+						class="rounded img-fluid" style="width: 300px; height: 200px; object-fit: cover;" alt="Pizza">
+					<br>
+					<a href="/pizze" class="btn btn-primary btn-lg mt-3">Scopri le Pizze</a>
+				</div>
+
+				<!-- Colonna per i Fritti -->
+				<div class="col-md-4 text-center">
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjG5FwdWZ9vv9TX6JVBGhImjYg79g-4Qb2vg&s"
+						class="rounded img-fluid" style="width: 300px; height: 200px; object-fit: cover;" alt="Fritti">
+					<br>
+					<a href="/fritti" class="btn btn-primary btn-lg mt-3">Scopri i Fritti</a>
+				</div>
+
+				<div class="col-md-4 text-center">
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcFG3FoBk50xc_97zQQitq63pa6yX7gTe0_A&s"
+						class="rounded img-fluid" style="width: 300px; height: 200px; object-fit: cover;" alt="Bevande">
+					<br>
+					<a href="/bevande" class="btn btn-primary btn-lg mt-3">Scopri le Bevande</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title>Fritti</title>
+</head>
+
+<body>
+
+	<nav th:replace="~{navbar :: navbar('fritti')}">	</nav>
+	
+	<div class="container">
+		<h1>Fritti</h1>
+
+
+	<div class="container">
+		<form th:action="@{/fritti}" method="get">
+			<div class="input-group">
+				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search"
+					aria-label="Search">
+
+				<button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+			</div>
+
+		</form>
+
+
+	</div>
+
+	<div class="container" th:if="${!fritti.isEmpty()}">
+		<table class="content table table-striped">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Descrizione</th>
+					<th>Foto</th>
+					<th>Prezzo</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="fritto : ${fritti}">
+					<td th:text="${fritto.nome}"></td>
+					<td th:text="${fritto.descrizione}"></td>
+					<td>
+						<img th:src="${fritto.foto}" alt="Foto di [[${fritto.nome}]]"
+							style="max-width: 100px; max-height: 100px;">
+					</td>
+					<td th:text="${fritto.prezzo}"></td>
+					<td>
+						<a class="btn btn-primary" th:href="@{/fritti/show/{id}(id=${fritto.id})}">
+							<i class="fas fa-pizza-slice"></i>
+						</a>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="container">
+		<div class="content alert alert-primary" role="alert" th:if="${fritti.isEmpty()}">Non ci sono fritti in friggitrice!
+		</div>
+	</div>
+	</div>
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>

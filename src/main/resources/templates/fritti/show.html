@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title th:text="${fritti.nome}"></title>
+</head>
+
+<body>
+<nav th:replace="~{navbar :: navbar('fritti')}">	</nav>
+	<div class=" container d-flex align-items-start flex-column bd-highlight mb-3" style="height: 50vh;">
+		<div class="container mb-auto" th:object="${fritti}">
+			<h1 th:text="*{nome}"></h1>
+			<hr />
+			<div class="row">
+				<div class="col-8">
+					<dl>
+						<dt>Ingredienti</dt>
+						<dd th:text="${fritti.descrizione}"></dd>
+						<dt>Prezzo</dt>
+						<dd th:text="${fritti.prezzo}"></dd>
+					</dl>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="container mt-auto">
+			<a class="btn btn-primary" th:href="@{/fritti}" role="button">Back to Fritti!</a>
+
+		</div>
+	</div>
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>
