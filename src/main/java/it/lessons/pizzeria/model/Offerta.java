@@ -33,7 +33,24 @@ import jakarta.validation.constraints.NotNull;
 		@JoinColumn (name="pizza_id", nullable = false)
 		private Pizza pizza;
 		
-		 public Offerta() {
+		private boolean valid = true;
+		
+		 public boolean isValid() {
+			return valid;
+		}
+
+
+		public void setValid(boolean valid) {
+			this.valid = valid;
+		}
+
+		
+		public boolean areDatesValid() {
+		    return endDate != null && offerDate != null && endDate.isAfter(offerDate);
+		}
+
+		public Offerta() {
+			this.offerDate = LocalDate.now();
 		    }
 
 
@@ -71,8 +88,7 @@ import jakarta.validation.constraints.NotNull;
 			return endDate;
 		}
 
-
-		public void setReturnDate(LocalDate endDate) {
+		public void setEndDate(LocalDate endDate) {
 			this.endDate = endDate;
 		}
 

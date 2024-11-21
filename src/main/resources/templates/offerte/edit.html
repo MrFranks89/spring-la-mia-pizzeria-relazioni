@@ -3,7 +3,7 @@
 
 <head>
 	<div th:replace="~{fragments :: head}"></div>
-	<title>Modifica la tua pizza!</title>
+	<title>Offerta!</title>
 
 	<style>
 		.form-container {
@@ -79,13 +79,17 @@
 	<div class="container form-container">
 		<h1 class="d-flex justify-content-center">Offerte!</h1>
 		<hr />
-		<form id="offerte-form" th:object="${offerta}" th:action="@{/offerte/crea}" th:method="post" class="row g-3">
+		
+		
+		<form id="offerte-form" th:object="${offerta}" 
+		th:action="${offerta.id} != null ? @{/offerte/edit/{id}(id=${offerta.id})} : @{/offerte/crea}" 
+		th:method="post" class="row g-3">
 			<input type="hidden" th:field="*{pizza.id}" id="pizza">
 
 			<div class="col-md-12 form-group">
 				<label for="nomeOfferta" class="form-label">Nome dell'Offerta</label>
 				<input type="text" class="form-control" id="nome" th:errorClass="is-invalid"
-					placeholder="Nome dell'Offerta" th:field="*{titolo}">
+					placeholder="Nome dell'Offerta" th:field="*{titolo}" required>
 				<div th:if="${#fields.hasErrors('titolo')}" class="invalid-feedback">
 					<ul>
 						<li th:each="err : ${#fields.errors('titolo')}" th:text="${err}">
@@ -98,7 +102,7 @@
 				<div class="col-md-6 form-group">
 					<label for="dataInizioOfferta" class="form-label">Data inizio offerta</label>
 					<input type="date" class="form-control" id="dataInizioOfferta" th:errorClass="is-invalid"
-						placeholder="Data di inizio offerta" th:field="*{offerDate}">
+						placeholder="Data di inizio offerta" th:field="*{offerDate}" required>
 					<div th:if="${#fields.hasErrors('offerDate')}" class="invalid-feedback">
 						<ul>
 							<li th:each="err : ${#fields.errors('offerDate')}" th:text="${err}">
@@ -110,7 +114,7 @@
 				<div class="col-md-6 form-group">
 					<label for="dataFineOfferta" class="form-label">Data fine offerta</label>
 					<input type="date" class="form-control" id="dataFineOfferta" th:errorClass="is-invalid"
-						placeholder="Data di fine offerta" th:field="*{endDate}">
+						placeholder="Data di fine offerta" th:field="*{endDate}" required>
 					<div th:if="${#fields.hasErrors('endDate')}" class="invalid-feedback">
 						<ul>
 							<li th:each="err : ${#fields.errors('endDate')}" th:text="${err}">

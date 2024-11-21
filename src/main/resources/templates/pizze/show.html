@@ -110,8 +110,8 @@
 							</td>
 							<td th:text="${offerta.titolo}">
 							</td>
-							<td><a class="btn btn-success" th:href="@{/pizze/{id}/offerte(id=${pizza.id})}">
-							    <i class="fas fa-edit"></i></td>  
+							<td><a class="btn btn-success" th:href="@{/offerte/edit/{id}(id=${offerta.id})}">
+									<i class="fas fa-edit"></i></td>
 							</a>
 						</tr>
 					</tbody>
@@ -126,33 +126,18 @@
 
 		</div>
 		<div class="d-flex justify-content-center btn-back">
-			<a class="btn btn-success" th:href="@{|/pizze/edit/${pizza.id}|}">
-				<i class="fas fa-edit"></i>
-			</a>
-			<form id="delete-pizza" th:action="@{'/pizze/delete/{id}'(id=${pizza.id})}" method="post"
-				style="display:inline-block;">
-				<button class="btn btn-danger" type="submit" id="submitButton"
-					onclick="return confirm('Vuoi eliminare questa pizza?')">
-					<i class="fas fa-trash"></i>
-				</button>
-								<a class="btn btn-success" th:href="@{/pizze/{id}/offerte(id=${pizza.id})}">
-					<i class="fas fa-edit"></i>
-				</a>
-				
-			</form>
-			
-			<div class="d-flex justify-content-center btn-back">
 
-			
-			
-			
+			<a class="btn btn-success" th:href="@{/pizze/{id}/offerte(id=${pizza.id})}">
+				<i class="fas fa-edit"></i> Nuova Offerta
+			</a>
+
 			<a class="btn btn-primary" th:href="@{/pizze}" role="button">
 				<i class="fas fa-arrow-left"></i> Torna al menù delle pizze
 			</a>
-		</div>
-	</div>
 
-	<div th:replace="~{fragments :: scripts}"></div>
+		</div>
+
+		<div th:replace="~{fragments :: scripts}"></div>
 </body>
 
 </html>

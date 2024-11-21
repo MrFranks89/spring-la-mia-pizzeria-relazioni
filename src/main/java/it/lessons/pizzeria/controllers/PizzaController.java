@@ -147,15 +147,14 @@ public class PizzaController {
 		 
 		  Pizza pizza = pizzaRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Pizza non trovata"));
 
-		    // Crea e configura l'offerta
 		    Offerta offerta = new Offerta();
 		    offerta.setPizza(pizza);
 		    offerta.setOfferDate(LocalDate.now());
 
-		    // Aggiungi l'offerta al modello
 		    model.addAttribute("offerta", offerta);
+		    model.addAttribute("pizzaId", id);
 
-		    return "offerte/edit"; // Ritorna la vista
+		    return "offerte/edit";
 	 }
 	 
 }
