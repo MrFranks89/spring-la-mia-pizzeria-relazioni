@@ -77,7 +77,7 @@
 	<nav th:replace="~{navbar :: navbar('pizze')}"> </nav>
 
 	<div class="container form-container">
-		<h1 class="d-flex justify-content-center">Offerte!</h1>
+		<h1 class="d-flex justify-content-center">Modifica l'offerta!</h1>
 		<hr />
 		
 		
@@ -102,7 +102,8 @@
 				<div class="col-md-6 form-group">
 					<label for="dataInizioOfferta" class="form-label">Data inizio offerta</label>
 					<input type="date" class="form-control" id="dataInizioOfferta" th:errorClass="is-invalid"
-						placeholder="Data di inizio offerta" th:field="*{offerDate}" required>
+					    th:field="*{offerDate}" th:value="${offerta.offerDate != null ? offerta.offerDate : #dates.format(today, 'yyyy-MM-dd')}" 
+					    min="${#dates.format(today, 'yyyy-MM-dd')}" required>
 					<div th:if="${#fields.hasErrors('offerDate')}" class="invalid-feedback">
 						<ul>
 							<li th:each="err : ${#fields.errors('offerDate')}" th:text="${err}">

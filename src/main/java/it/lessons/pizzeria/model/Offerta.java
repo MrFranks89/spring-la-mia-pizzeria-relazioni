@@ -2,6 +2,8 @@ package it.lessons.pizzeria.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +21,11 @@ import jakarta.validation.constraints.NotNull;
 		private Long id;
 		
 		@NotNull(message = "La data di inizio offerta non può essere vuota")
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
 		@FutureOrPresent
 		private LocalDate offerDate;
 		
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
 		@FutureOrPresent
 		private LocalDate endDate;
 		

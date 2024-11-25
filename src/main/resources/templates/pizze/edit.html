@@ -6,7 +6,6 @@
 	<title>Modifica la tua pizza!</title>
 
 	<style>
-
 		.form-container {
 			max-width: 500px;
 			margin: 0 auto;
@@ -80,13 +79,13 @@
 	<div class="container form-container">
 		<h1 class="d-flex justify-content-center">Modifica la tua Pizza!</h1>
 		<hr />
-		<form id="pizza-form" th:object="${pizza}" th:action="@{/pizze/edit/{id} (id=${pizza.id})}" th:method="post" class="row g-3">
+		<form id="pizza-form" th:object="${pizza}" th:action="@{/pizze/edit/{id} (id=${pizza.id})}" th:method="post"
+			class="row g-3">
 
 
 			<div class="col-md-12 form-group">
 				<label for="nome" class="form-label">Nome</label>
-				<input type="text" class="form-control" id="nome" 
-				th:errorClass="is-invalid" placeholder="Nome"
+				<input type="text" class="form-control" id="nome" th:errorClass="is-invalid" placeholder="Nome"
 					th:field="*{nome}" readonly>
 				<div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback">
 					<ul>
@@ -128,7 +127,15 @@
 					</ul>
 				</div>
 			</div>
-
+			<div class="col-4">
+				<h4>Ingredienti</h4>
+				<div class="form-check" th:each="ing : ${allIngredienti}">
+					<input class="form-check-input" type="checkbox" th:id="|ingredienti_${ing.id}|"
+						th:value="${ing.id}" th:field="*{ingredienti}">
+					<label class="form-check-label" th:for="|ingredienti_${ing.id}|"
+						th:text="${ing.ingredienti}"></label>
+				</div>
+			</div>
 
 			<div class="col-12 form-group">
 				<button type="submit" class="btn btn-primary mb-3">Aggiorna Pizza</button>

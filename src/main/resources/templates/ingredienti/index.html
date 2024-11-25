@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title>Ingredienti</title>
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f9f9f9;
+		}
+
+		h1 {
+			color: #343a40;
+		}
+
+
+		.btn {
+			transition: all 0.3s ease;
+		}
+
+		.btn-success:hover {
+			background-color: #28a745;
+			border-color: #28a745;
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+			border-color: #0056b3;
+		}
+
+		.btn-danger:hover {
+			background-color: #c82333;
+			border-color: #c82333;
+		}
+
+
+		img {
+			border-radius: 8px;
+			border: 1px solid #ddd;
+			padding: 5px;
+		}
+
+
+		.table {
+			margin-top: 20px;
+		}
+
+		.table thead {
+			background-color: #343a40;
+			color: white;
+		}
+
+		.table tbody tr:hover {
+			background-color: #f1f1f1;
+			transition: background-color 0.3s ease;
+		}
+
+		#success-message {
+			text-align: center;
+		}
+
+		/* per mobile */
+		@media (max-width: 768px) {
+			.btn {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+
+			.input-group {
+				flex-direction: column;
+			}
+
+			.input-group input {
+				margin-bottom: 10px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav th:replace="~{navbar :: navbar('ingredienti')}"> </nav>
+
+	<div class="container-lg">
+		<h1 class="d-flex justify-content-center mt-3">Ingredienti</h1>
+		<hr />
+
+		<div class="row">
+			<div class="col-4">
+				<form th:action="@{/ingredienti/create}" method="post" class="col-md-8" id="ingredienti-form"
+					th:object="${ing}">
+					<div class="input-group mb-3 col-6">
+						<input id="ingredienti" th:field="*{ingredienti}" type="text" class="form-control"
+							th:errorClass="is-invalid">
+						<button class="btn btn-primary" type="submit">Aggiungi</button>
+					</div>
+					<div th:if="${#fields.hasErrors('ingredienti')}" class="invalid-feedback">
+						<ul>
+							<li th:each="err : ${#fields.errors('ingredienti')}" th:text="${err}">
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="container justify-content-center" th:if="${!ingredienti.isEmpty()}">
+		<table class="content table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Ingredienti</th>
+					<th>N° Pizze</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="ingredienti : ${ingredienti}" style="vertical-align: middle;">
+					<td th:text="${ingredienti.ingredienti}" class="align-middle"></td>
+					<td th:text="${ingredienti.pizza.size()}" class="align-middle"></td>
+					<td>
+						<form th:action="@{|/ingredienti/delete/${ingredienti.id}|}" method="post" class="col-md-8"
+							id="delete-form" th:object="${ing}">
+							<button class="btn btn-danger" type="submit" id="submitButton"
+								onclick="return confirm('Sei sicuro?')"><i class="fas fa-trash"></i</button>
+							
+
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>

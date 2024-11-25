@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.lessons.pizzeria.model.Offerta;
 import it.lessons.pizzeria.model.Pizza;
+import it.lessons.pizzeria.repository.IngredientiRepository;
 import it.lessons.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
 
@@ -30,6 +31,9 @@ public class PizzaController {
 
 	@Autowired
 	private PizzaRepository pizzaRepo;
+	
+	@Autowired
+	private IngredientiRepository ingredientiRepo;
 
 	@GetMapping
 	public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
@@ -59,10 +63,10 @@ public class PizzaController {
 	@GetMapping("/show/{id}")
 	public String show(@PathVariable(name = "id") Long id, Model model) {
 
-		Optional<Pizza> pizzaOptional = pizzaRepo.findById(id); // contenitore
+		Optional<Pizza> pizzaOptional = pizzaRepo.findById(id); 
 
 		if (pizzaOptional.isPresent()) {
-			model.addAttribute("pizza", pizzaOptional.get()); // tira fuori il contenuto dal contenitore
+			model.addAttribute("pizza", pizzaOptional.get());
 		}
 		
 
@@ -72,6 +76,7 @@ public class PizzaController {
 	 @GetMapping("/create")
 	 public String create(Model model) {
 		 model.addAttribute("pizza", new Pizza());
+		 model.addAttribute("allIngredienti", ingredientiRepo.findAll());
 		 
 		 return "pizze/create";
 	 }
@@ -97,6 +102,8 @@ public class PizzaController {
 	 public String edit(@PathVariable Long id,  Model model) {
 		 
 		 model.addAttribute("pizza", pizzaRepo.findById(id).get());
+		 model.addAttribute("allIngredienti", ingredientiRepo.findAll());
+		 
 		 return "pizze/edit";
 	 }
 	 
@@ -131,7 +138,7 @@ public class PizzaController {
 		 
 		 redirectAttributes.addFlashAttribute("successMessage", "Pizza Modificata!");
 		 
-		 return "redirect:/pizze";
+		 return "redirect:/pizze/show/{id}";
 	 }
 	 
 	 @PostMapping("/delete/{id}")
